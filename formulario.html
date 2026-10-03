@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Datos para la web de Ocupamente</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#F3EFE7; --hoja:#FBF9F4; --arena:#E8E0D3; --linea:#D5CCBC;
+  --tinta:#2A3028; --tinta-suave:#515C4C; --salvia:#5E6E58; --topo:#8C7860;
+  --btn:#445440; --btn-tinta:#FBF9F4;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --papel:#1E231D; --hoja:#262C24; --arena:#2F362D; --linea:#414A3E;
+    --tinta:#ECE7DC; --tinta-suave:#BEC6B6; --salvia:#A9BBA1; --topo:#CDBBA2;
+    --btn:#B7C8AF; --btn-tinta:#1E231D; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --papel:#1E231D; --hoja:#262C24; --arena:#2F362D; --linea:#414A3E;
+  --tinta:#ECE7DC; --tinta-suave:#BEC6B6; --salvia:#A9BBA1; --topo:#CDBBA2;
+  --btn:#B7C8AF; --btn-tinta:#1E231D; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 7rem); -webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papel); color:var(--tinta);
+  font-family:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",Verdana,"Segoe UI",system-ui,sans-serif;
+  font-size:1.0625rem; line-height:1.6;
+}
+.ancho{width:min(100% - 2rem,42rem); margin-inline:auto}
+:focus-visible{outline:3px solid var(--tinta); outline-offset:3px; border-radius:6px}
+h1{font-weight:600; font-size:1.05rem; margin:0}
+h2{font-weight:300; font-size:clamp(1.7rem,1.3rem + 2vw,2.2rem); line-height:1.2; margin:.2rem 0 .6rem}
+h3{font-weight:600; font-size:1.15rem; margin:0}
+p{margin:0 0 .9em}
+a{color:var(--tinta); text-underline-offset:.2em}
+ul{padding-left:1.2rem; margin:0 0 1em}
+li{margin-bottom:.35em}
+
+/* Cabecera con avance */
+.cab{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--papel); border-bottom:1px solid var(--linea); padding:.7rem 0 .75rem}
+.cab__fila{display:flex; justify-content:space-between; gap:1rem; align-items:baseline; flex-wrap:wrap}
+.cab small{color:var(--tinta-suave); font-size:.9rem}
+.barra{height:.5rem; background:var(--arena); border-radius:99px; overflow:hidden; margin:.5rem 0 .55rem}
+.barra span{display:block; height:100%; width:0; background:var(--salvia); border-radius:99px}
+.ir{display:flex; gap:.5rem; align-items:center; font-size:.95rem}
+.ir select{font:inherit; flex:1; min-width:0; padding:.4rem .5rem; border-radius:8px; border:2px solid var(--linea); background:var(--hoja); color:var(--tinta); min-height:2.6rem}
+
+main{padding:1.75rem 0 2rem}
+.paso-n{color:var(--tinta-suave); margin:0; font-size:.95rem}
+.intro{color:var(--tinta-suave); font-size:1.05rem}
+.aviso{background:var(--arena); border:1px dashed var(--topo); border-radius:10px; padding:.8rem 1rem; margin-bottom:1.2rem}
+.aviso p:last-child{margin:0}
+
+/* Preguntas */
+.q{background:var(--hoja); border:1px solid var(--linea); border-radius:14px; padding:1.1rem 1.1rem 1.2rem; margin:0 0 1rem}
+.q__label{font-weight:600; font-size:1.08rem; margin:0 0 .3rem; display:block}
+.ayuda{color:var(--tinta-suave); font-size:.97rem; margin:0 0 .7rem}
+.chips{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.6rem}
+.chip{
+  font:inherit; cursor:pointer; min-height:2.75rem; padding:.45rem .95rem; border-radius:999px;
+  border:2px solid var(--linea); background:transparent; color:var(--tinta); text-align:left;
+}
+.chip[aria-pressed="true"]{background:var(--btn); border-color:var(--btn); color:var(--btn-tinta); font-weight:600}
+.chip--ns{border-style:dashed; color:var(--tinta-suave)}
+input[type="text"],textarea{
+  font:inherit; width:100%; padding:.65rem .8rem; border-radius:10px; border:2px solid var(--linea);
+  background:var(--papel); color:var(--tinta); margin-top:.5rem; min-height:2.9rem;
+}
+textarea{min-height:6rem; resize:vertical; line-height:1.5}
+.prop{margin:.5rem 0 .2rem; padding:.8rem 1rem; border-left:4px solid var(--salvia); background:var(--arena); border-radius:0 10px 10px 0}
+.prop p{margin:0 0 .5em} .prop p:last-child{margin:0}
+.sub{display:block; font-size:.97rem; color:var(--tinta-suave); margin-top:.8rem}
+
+/* Equipo */
+.persona{border:2px solid var(--linea); border-radius:18px; padding:1rem; margin-bottom:1.25rem}
+.persona__cab{display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:.9rem}
+.persona .q{border-radius:12px}
+
+/* Botones */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; font:inherit; font-weight:600; cursor:pointer; text-decoration:none;
+  background:var(--btn); color:var(--btn-tinta); border:2px solid var(--btn); padding:.65rem 1.2rem; border-radius:999px; min-height:2.9rem;
+}
+.btn--linea{background:transparent; color:var(--tinta); border-color:var(--salvia)}
+.btn--chico{min-height:2.5rem; padding:.35rem .9rem; font-size:.95rem}
+.btn[disabled]{opacity:.45; cursor:default}
+.acciones{display:flex; flex-wrap:wrap; gap:.6rem; margin:1rem 0}
+.estado{min-height:1.6em; color:var(--tinta-suave)}
+#mensaje{min-height:16rem; font-size:.95rem}
+
+/* Navegación inferior */
+.pie{position:sticky; bottom:0; background:var(--papel); border-top:1px solid var(--linea); padding:.7rem 0 calc(.7rem + env(safe-area-inset-bottom,0px))}
+.pie__fila{display:flex; justify-content:space-between; gap:.75rem}
+
+dialog{border:1px solid var(--linea); border-radius:16px; background:var(--hoja); color:var(--tinta); padding:1.4rem; width:min(100% - 2rem,26rem)}
+dialog::backdrop{background:rgba(30,35,29,.55)}
+</style>
+</head>
+<body>
+
+<header class="cab">
+  <div class="ancho">
+    <div class="cab__fila">
+      <h1>Datos para la web de Ocupamente</h1>
+      <small id="guardado" aria-live="polite"></small>
+    </div>
+    <div class="barra" aria-hidden="true"><span id="barra"></span></div>
+    <div class="cab__fila">
+      <small id="avance"></small>
+    </div>
+    <label class="ir" for="ir">Ir a
+      <select id="ir"></select>
+    </label>
+  </div>
+</header>
+
+<main><div class="ancho" id="paso"></div></main>
+
+<nav class="pie" aria-label="Avanzar o retroceder">
+  <div class="ancho pie__fila">
+    <button class="btn btn--linea" type="button" id="ant">Anterior</button>
+    <button class="btn" type="button" id="sig">Siguiente</button>
+  </div>
+</nav>
+
+<dialog id="borrar" aria-labelledby="borrarT">
+  <h3 id="borrarT">¿Borrar todas las respuestas?</h3>
+  <p style="margin-top:.6rem">Esto no se puede deshacer.</p>
+  <div class="acciones">
+    <button class="btn" type="button" id="borrarSi">Sí, borrar todo</button>
+    <button class="btn btn--linea" type="button" id="borrarNo">Cancelar</button>
+  </div>
+</dialog>
+
+<script>
+(function(){
+'use strict';
+
+var VISTA_PREVIA='index.html';
+var CLAVE='ocupamente:formulario:v1';
+var OTRO='__otro', NS='__ns';
+
+/* ---------------- Preguntas ---------------- */
+var EQ=[
+  {id:'nombre', tipo:'texto', label:'Nombre completo', corto:'Nombre completo', ph:'Como debe aparecer en la página'},
+  {id:'area', tipo:'single', label:'Área profesional', corto:'Área profesional',
+   ops:['Psicología','Terapia ocupacional','Fonoaudiología','Psicopedagogía','Psiquiatría','Neurología']},
+  {id:'titulo', tipo:'texto', label:'Título y universidad', corto:'Título y universidad', ph:'Ejemplo: Psicóloga, Universidad de Valparaíso'},
+  {id:'exp', tipo:'single', label:'Años de experiencia', corto:'Años de experiencia',
+   ops:['Menos de 2 años','2 a 5 años','6 a 10 años','Más de 10 años']},
+  {id:'formacion', tipo:'area', label:'Formación adicional', corto:'Formación adicional',
+   ayuda:'Diplomados, magíster, cursos o certificaciones. Basta una lista corta.'},
+  {id:'atiende', tipo:'multi', label:'¿A quién atiende?', corto:'A quién atiende',
+   ops:['Niños y niñas','Adolescentes','Adultos','Personas mayores','Familias y cuidadores']},
+  {id:'temas', tipo:'multi', label:'¿Qué temas atiende?', corto:'Temas que atiende',
+   ayuda:'Marca solo lo que de verdad atiende. Son las palabras que la gente escribe en Google y con ellas redactaremos los textos.',
+   ops:['Autismo','TDAH','Ansiedad','Depresión','Dificultades de aprendizaje','Integración sensorial','Regulación emocional','Habilidades sociales','Evaluación y diagnóstico','Informes','Orientación a familias','Altas capacidades','Autonomía en la vida diaria','Apoyo escolar o laboral']},
+  {id:'modalidad', tipo:'multi', label:'¿Cómo atiende?', corto:'Modalidad',
+   ops:['Presencial en el centro','En línea','A domicilio','En colegios']},
+  {id:'agenda', tipo:'multi', label:'¿Cómo se agenda una hora con esta persona?', corto:'Cómo se agenda',
+   ops:['Encuadrado','WhatsApp','Correo','Instagram']},
+  {id:'ig', tipo:'texto', label:'Instagram profesional', corto:'Instagram profesional', ph:'@usuario'}
+];
+
+var SECCIONES=[
+  {id:'inicio', titulo:'Antes de empezar', inicio:true},
+  {id:'equipo', titulo:'Equipo', equipo:true,
+   intro:'Con estos datos Romina redacta una reseña breve de cada persona. No necesitas escribirla tú.'},
+  {id:'centro', titulo:'El centro', preguntas:[
+    {id:'especialidades', tipo:'multi', label:'¿Qué especialidades y servicios ofrece el centro?', corto:'Especialidades y servicios',
+     ops:['Psicología','Terapia ocupacional','Fonoaudiología','Psicopedagogía','Psiquiatría','Talleres grupales','Evaluaciones e informes','Charlas o capacitaciones']},
+    {id:'edades', tipo:'multi', label:'¿A qué edades atienden?', corto:'Edades que atienden',
+     ops:['Niños y niñas','Adolescentes','Adultos','Personas mayores']},
+    {id:'direccion', tipo:'revision', label:'¿La dirección está bien escrita?', corto:'Dirección',
+     propuesto:['8 Norte 310, oficina 26. Galería Torres del Sol, Viña del Mar, Chile.']}
+  ]},
+  {id:'contacto', titulo:'Contacto y horarios', preguntas:[
+    {id:'whatsapp', tipo:'texto', label:'WhatsApp para mostrar en la página', corto:'WhatsApp', ph:'+56 9 ...'},
+    {id:'wspDe', tipo:'single', label:'¿De quién es ese WhatsApp?', corto:'WhatsApp pertenece a',
+     ops:['Es del centro','Es de una profesional','Cada profesional tiene el suyo']},
+    {id:'correo', tipo:'texto', label:'Correo de contacto', corto:'Correo', ph:'nombre@ejemplo.cl'},
+    {id:'dias', tipo:'multi', label:'¿Qué días atienden?', corto:'Días de atención',
+     ops:['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado']},
+    {id:'horario', tipo:'texto', label:'Horario de atención', corto:'Horario', ph:'Ejemplo: 9:00 a 19:00'},
+    {id:'redes', tipo:'texto', label:'Otras redes o enlaces del centro', corto:'Otras redes', ph:'Además de @ocupamente.vina'}
+  ]},
+  {id:'valores', titulo:'Valores y pagos', preguntas:[
+    {id:'publicar', tipo:'single', label:'¿Quieres publicar los valores en la página?', corto:'Publicar valores',
+     ayuda:'Publicarlos evita que la persona tenga que preguntar, lo que ayuda a quienes les cuesta iniciar una conversación.',
+     ops:['Sí, publicar los valores','Solo un valor "desde"','No, que consulten por mensaje']},
+    {id:'montos', tipo:'area', label:'Valores de cada atención', corto:'Valores',
+     ayuda:'Aunque no se publiquen, sirven para redactar las preguntas frecuentes.'},
+    {id:'duracion', tipo:'single', label:'¿Cuánto dura una sesión?', corto:'Duración de la sesión',
+     ops:['30 minutos','45 minutos','60 minutos','Depende de la especialidad']},
+    {id:'prevision', tipo:'multi', label:'Fonasa, Isapre y seguros', corto:'Previsión',
+     ops:['Bono Fonasa','Boleta para reembolso en Isapre','Boleta para seguro complementario','Solo atención particular']},
+    {id:'pago', tipo:'multi', label:'Medios de pago', corto:'Medios de pago',
+     ops:['Transferencia','Tarjeta de débito','Tarjeta de crédito','Efectivo','Pago en línea al agendar']},
+    {id:'cancelar', tipo:'single', label:'¿Con cuánta anticipación se puede cancelar o cambiar una hora?', corto:'Cancelación o cambio de hora',
+     ops:['24 horas antes','48 horas antes','Aún no hay una política']},
+    {id:'confirma', tipo:'multi', label:'¿Por dónde llega la confirmación de la hora?', corto:'Confirmación de la hora',
+     ops:['Correo','WhatsApp']}
+  ]},
+  {id:'llegar', titulo:'Cómo llegar', preguntas:[
+    {id:'piso', tipo:'single', label:'¿En qué piso está la oficina 26?', corto:'Piso',
+     ops:['Primer piso','Segundo piso','Tercer piso']},
+    {id:'acceso', tipo:'multi', label:'¿Cómo se llega a la oficina?', corto:'Acceso',
+     ops:['Ascensor','Escalera','Rampa','Sin escalones desde la calle']},
+    {id:'estac', tipo:'multi', label:'Estacionamiento', corto:'Estacionamiento',
+     ops:['En la galería','En la calle','Estacionamiento pagado cerca','No hay']},
+    {id:'bano', tipo:'single', label:'¿Hay baño para quienes se atienden?', corto:'Baño',
+     ops:['Sí','Sí, y es accesible','No']},
+    {id:'referencias', tipo:'area', label:'Referencias para ubicarse', corto:'Referencias',
+     ayuda:'Por ejemplo: entre qué calles está, qué hay al lado de la entrada, qué micros o colectivos pasan cerca.'}
+  ]},
+  {id:'espera', titulo:'Sala de espera y primera sesión', intro:'Describir el lugar con detalle ayuda a que la persona llegue más tranquila.', preguntas:[
+    {id:'luz', tipo:'multi', label:'¿Cómo es la luz de la sala de espera?', corto:'Luz',
+     ops:['Luz natural','Luz cálida','Luz blanca','Se puede regular o apagar']},
+    {id:'ruido', tipo:'single', label:'¿Cómo es el ruido?', corto:'Ruido',
+     ops:['Silencioso','Algo de ruido de la calle o la galería','Hay música suave']},
+    {id:'gente', tipo:'single', label:'¿Cuánta gente suele haber esperando?', corto:'Gente en la sala de espera',
+     ops:['Solo quien espera su hora','2 o 3 personas','Más de 3 personas']},
+    {id:'ajustes', tipo:'multi', label:'¿Qué ajustes pueden ofrecer?', corto:'Ajustes que pueden ofrecer',
+     ayuda:'Marca solo lo que de verdad se puede hacer en el centro.',
+     ops:['Bajar o apagar luces','Pausas durante la sesión','Comunicarse por escrito','Venir con alguien de confianza','Traer audífonos u objetos de regulación','Esperar afuera y avisar por mensaje']},
+    {id:'primera', tipo:'area', label:'¿Qué pasa en la primera sesión?', corto:'Primera sesión',
+     ayuda:'En pocas palabras: qué se hace, qué se pregunta, si hay que llevar algo.'}
+  ]},
+  {id:'lenguaje', titulo:'Cómo hablar en la página', preguntas:[
+    {id:'autismo', tipo:'single', label:'¿Qué expresión prefieren?', corto:'Expresión preferida',
+     ops:['Persona autista','Persona con autismo','Persona en el espectro autista']},
+    {id:'trato', tipo:'single', label:'¿Cómo le hablamos a quien lee?', corto:'Trato',
+     ops:['De tú','De usted']},
+    {id:'llaman', tipo:'single', label:'¿Cómo llaman a quienes atienden?', corto:'Cómo llaman a quienes atienden',
+     ops:['Pacientes','Consultantes','Usuarios','Personas']},
+    {id:'genero', tipo:'single', label:'Lenguaje de género', corto:'Lenguaje de género',
+     ops:['"Niños y niñas"','Palabras neutras ("la infancia", "las personas")','Con "e" ("niñes")']},
+    {id:'evitar', tipo:'area', label:'¿Hay palabras que no quieres que aparezcan?', corto:'Palabras que evitar',
+     ayuda:'Por ejemplo: "trastorno", "tratamiento", "normal".'}
+  ]},
+  {id:'textos', titulo:'Textos propuestos', intro:'Estos textos están en la vista previa. Revisa cada uno. En las frases que son promesas, marca "Queda tal cual" solo si el centro puede cumplirla.', preguntas:[
+    {id:'tNeuro', tipo:'revision', label:'Enfoque neuroafirmativo', corto:'Texto "Enfoque neuroafirmativo"',
+     propuesto:['Entendemos la neurodivergencia (por ejemplo, autismo, TDAH o dislexia) como una forma distinta de percibir y procesar el mundo. No es algo que haya que corregir.','El acompañamiento parte de lo que tú necesitas, de tus intereses y de tu forma de comunicarte.']},
+    {id:'tOcup', tipo:'revision', label:'Ciencias de la ocupación', corto:'Texto "Ciencias de la ocupación"',
+     propuesto:['Estudian cómo las actividades de cada día influyen en el bienestar: estudiar, trabajar, jugar, descansar, cuidarse y relacionarse con otras personas.','Trabajamos para que esas actividades sean posibles y tengan sentido para ti.']},
+    {id:'tClaro', tipo:'revision', label:'Promesa: lenguaje claro', corto:'Texto "Lenguaje claro"',
+     propuesto:['Te explicamos cada paso antes de que ocurra.']},
+    {id:'tRitmo', tipo:'revision', label:'Promesa: tu ritmo', corto:'Texto "Tu ritmo"',
+     propuesto:['Puedes pedir pausas, cambios en la luz o comunicarte por escrito.']},
+    {id:'tInfo', tipo:'revision', label:'Promesa: información antes de venir', corto:'Texto "Información antes de venir"',
+     propuesto:['Sabrás el valor, la duración y quién te atenderá antes de llegar.']},
+    {id:'tEscrito', tipo:'revision', label:'Frase de la portada', corto:'Texto de la portada',
+     propuesto:['Puedes hacer todo por escrito. No necesitas llamar por teléfono.']},
+    {id:'tSesion', tipo:'revision', label:'Frase sobre la primera sesión', corto:'Texto sobre la primera sesión',
+     propuesto:['En la primera sesión conversamos sobre qué te trae y qué necesitas. No hay respuestas correctas ni incorrectas.']}
+  ]},
+  {id:'faq', titulo:'Preguntas frecuentes', preguntas:[
+    {id:'diagnostico', tipo:'single', label:'¿Se necesita un diagnóstico para agendar?', corto:'¿Se necesita diagnóstico?',
+     ops:['No, cualquier persona puede agendar','Sí, se necesita','Depende de la especialidad']},
+    {id:'acompanante', tipo:'single', label:'¿Se puede venir con otra persona?', corto:'¿Se puede venir con otra persona?',
+     ops:['Sí, y puede entrar a la sesión','Sí, y espera en la sala de espera','Depende del caso']},
+    {id:'otras', tipo:'area', label:'¿Qué otras preguntas les hacen seguido?', corto:'Otras preguntas frecuentes',
+     ayuda:'Las que más se repiten por WhatsApp o Instagram. Si puedes, agrega la respuesta.'}
+  ]},
+  {id:'estetica', titulo:'Cómo se ve la página', preguntas:[
+    {id:'gusta', tipo:'single', label:'¿Te gusta cómo se ve la vista previa?', corto:'Opinión de la vista previa',
+     ops:['Sí, así está bien','Sí, pero con cambios','No me convence','Aún no la veo']},
+    {id:'cambios', tipo:'multi', label:'¿Qué cambiarías?', corto:'Qué cambiaría',
+     ops:['Los colores','El tipo de letra','El orden de las secciones','Menos texto','Más fotos','Nada']},
+    {id:'sentir', tipo:'multi', label:'¿Cómo quieres que se sienta la página?', corto:'Cómo debe sentirse',
+     ops:['Tranquila','Cálida','Profesional','Cercana','Alegre','Sobria']},
+    {id:'noquiero', tipo:'area', label:'¿Hay algo que no quieras que aparezca?', corto:'No quiere que aparezca'},
+    {id:'refsWeb', tipo:'area', label:'Páginas que te gusten como referencia', corto:'Páginas de referencia',
+     ayuda:'Pega los enlaces. No tienen que ser de salud.'},
+    {id:'peticiones', tipo:'area', label:'Exigencias o peticiones especiales para la estética', corto:'Peticiones especiales de estética'}
+  ]},
+  {id:'extras', titulo:'Últimos detalles', preguntas:[
+    {id:'dominio', tipo:'single', label:'¿Quieren una dirección propia para la página?', corto:'Dominio',
+     ayuda:'Una dirección como ocupamente.cl cuesta cerca de $10.000 al año y se ve más profesional que la gratuita.',
+     ops:['Sí, ocupamente.cl','Por ahora la dirección gratuita']},
+    {id:'formulario', tipo:'single', label:'¿Quieren un formulario de contacto dentro de la página?', corto:'Formulario de contacto',
+     ayuda:'La recomendación es no ponerlo, porque la gente suele escribir datos de salud y quedarían en un servicio externo.',
+     ops:['No, basta con WhatsApp y correo','Sí, uno mínimo']},
+    {id:'logo', tipo:'single', label:'El logo original', corto:'Logo',
+     ayuda:'Se necesita el archivo del logo solo, sin la foto de fondo.',
+     ops:['Lo tengo y lo envío','Hay que pedirlo a quien lo diseñó','Solo existe la imagen de Instagram']},
+    {id:'fotos', tipo:'single', label:'Las fotos del centro', corto:'Fotos',
+     ayuda:'Se envían aparte: entrada de la galería desde la calle, pasillo y puerta de la oficina 26, sala de espera, cada sala de atención y un retrato de cada profesional. Horizontales, con luz de día y sin personas atendidas.',
+     ops:['Las tomo y las envío yo','Necesito ayuda para tomarlas']},
+    {id:'mas', tipo:'area', label:'¿Algo más que quieras decir?', corto:'Comentarios finales'}
+  ]},
+  {id:'enviar', titulo:'Revisar y enviar', fin:true}
+];
+
+/* ---------------- Estado y guardado ---------------- */
+var S={paso:0, r:{}, equipo:[{}]};
+var puedeGuardar=true;
+try{
+  var crudo=localStorage.getItem(CLAVE);
+  if(crudo){
+    var leido=JSON.parse(crudo);
+    if(leido && typeof leido==='object'){
+      S.paso=Number(leido.paso)||0;
+      if(leido.r && typeof leido.r==='object'){ S.r=leido.r; }
+      if(Array.isArray(leido.equipo) && leido.equipo.length){ S.equipo=leido.equipo; }
+    }
+  }
+  localStorage.setItem(CLAVE+':prueba','1'); localStorage.removeItem(CLAVE+':prueba');
+}catch(e){ puedeGuardar=false; }
+if(S.paso<0 || S.paso>=SECCIONES.length){ S.paso=0; }
+
+var $paso=document.getElementById('paso'), $barra=document.getElementById('barra'),
+    $avance=document.getElementById('avance'), $guardado=document.getElementById('guardado'),
+    $ir=document.getElementById('ir'), $ant=document.getElementById('ant'), $sig=document.getElementById('sig');
+
+var temporizador=null;
+function escribir(){
+  if(!puedeGuardar){ return; }
+  try{ localStorage.setItem(CLAVE, JSON.stringify(S)); $guardado.textContent='Guardado en este dispositivo'; }
+  catch(e){ $guardado.textContent='No se pudo guardar'; }
+}
+function guardar(){
+  actualizarAvance();
+  clearTimeout(temporizador); temporizador=setTimeout(escribir,250);
+}
+
+/* ---------------- Utilidades ---------------- */
+function el(tag, attrs){
+  var e=document.createElement(tag), k;
+  for(k in (attrs||{})){ if(k==='class'){ e.className=attrs[k]; } else { e.setAttribute(k,attrs[k]); } }
+  for(var i=2;i<arguments.length;i++){
+    var c=arguments[i];
+    if(Array.isArray(c)){ c.forEach(function(x){ e.append(x); }); } else if(c!=null){ e.append(c); }
+  }
+  return e;
+}
+function resp(m,q){
+  var a=m[q.id];
+  if(!a || typeof a!=='object'){ a=m[q.id]={sel:[],otro:'',t:''}; }
+  if(!Array.isArray(a.sel)){ a.sel=[]; }
+  if(typeof a.otro!=='string'){ a.otro=''; }
+  if(typeof a.t!=='string'){ a.t=''; }
+  return a;
+}
+function esTexto(q){ return q.tipo==='texto' || q.tipo==='area'; }
+function respondida(m,q){
+  var a=m[q.id]; if(!a || !Array.isArray(a.sel)){ return false; }
+  if(esTexto(q)){ return !!(a.t||'').trim() || a.sel.indexOf(NS)>-1; }
+  if(q.tipo==='revision'){ return a.sel.length>0; }
+  return a.sel.some(function(v){ return v!==OTRO; }) || (a.sel.indexOf(OTRO)>-1 && !!(a.otro||'').trim());
+}
+function opciones(q){
+  if(esTexto(q)){ return [{v:NS,t:'Aún no lo sé'}]; }
+  if(q.tipo==='revision'){
+    return [{v:'ok',t:'Queda tal cual'},{v:'cambiar',t:'Quiero cambiarlo'},{v:'quitar',t:'No va en la página'},{v:NS,t:'Aún no lo sé'}];
+  }
+  return q.ops.map(function(o){ return {v:o,t:o}; }).concat([{v:OTRO,t:'Otro'},{v:NS,t:'Aún no lo sé'}]);
+}
+function alternar(q,a,v){
+  var esta=a.sel.indexOf(v)>-1;
+  if(v===NS){ a.sel=esta?[]:[NS]; return; }
+  if(q.tipo==='multi'){
+    a.sel=a.sel.filter(function(x){ return x!==NS && x!==v; });
+    if(!esta){ a.sel.push(v); }
+  }else{
+    a.sel=esta?[]:[v];
+  }
+}
+
+/* ---------------- Dibujo de una pregunta ---------------- */
+function pregunta(q,m,pref){
+  var id=pref+'-'+q.id;
+  var caja=el('div',{class:'q'});
+  if(!esTexto(q)){ caja.setAttribute('role','group'); caja.setAttribute('aria-labelledby',id+'-l'); }
+
+  function dibujar(foco){
+    var a=resp(m,q), enfocar=null, chipNs=null;
+    caja.textContent='';
+    if(esTexto(q)){ caja.append(el('label',{class:'q__label','for':id},q.label)); }
+    else{ caja.append(el('p',{class:'q__label',id:id+'-l'},q.label)); }
+    if(q.ayuda){ caja.append(el('p',{class:'ayuda'},q.ayuda)); }
+    if(q.tipo==='revision'){
+      caja.append(el('blockquote',{class:'prop'}, q.propuesto.map(function(p){ return el('p',{},p); })));
+    }
+    if(esTexto(q)){
+      var campo=q.tipo==='area'?el('textarea',{id:id}):el('input',{id:id,type:'text',autocomplete:'off'});
+      if(q.ph){ campo.setAttribute('placeholder',q.ph); }
+      campo.value=a.t;
+      campo.addEventListener('input',function(){
+        a.t=campo.value;
+        if(a.t.trim() && a.sel.length){ a.sel=[]; if(chipNs){ chipNs.setAttribute('aria-pressed','false'); } }
+        guardar();
+      });
+      caja.append(campo);
+    }
+    var fila=el('div',{class:'chips'});
+    opciones(q).forEach(function(o){
+      var b=el('button',{type:'button',class:'chip'+(o.v===NS?' chip--ns':''),'aria-pressed':String(a.sel.indexOf(o.v)>-1)},o.t);
+      b.addEventListener('click',function(){ alternar(q,a,o.v); guardar(); dibujar(o.v); });
+      if(o.v===NS){ chipNs=b; }
+      if(o.v===foco){ enfocar=b; }
+      fila.append(b);
+    });
+    caja.append(fila);
+
+    if(a.sel.indexOf(OTRO)>-1){
+      var otro=el('input',{type:'text',id:id+'-otro',autocomplete:'off',placeholder:'Escribe aquí'});
+      otro.value=a.otro;
+      otro.addEventListener('input',function(){ a.otro=otro.value; guardar(); });
+      caja.append(el('label',{class:'sub','for':id+'-otro'},'Otro: escribe tu respuesta'), otro);
+      if(foco===OTRO){ enfocar=otro; }
+    }
+    if(q.tipo==='revision' && (a.sel.indexOf('cambiar')>-1 || a.sel.indexOf('quitar')>-1)){
+      var cambia=a.sel.indexOf('cambiar')>-1;
+      var nota=el('textarea',{id:id+'-t'});
+      nota.value=a.t;
+      nota.addEventListener('input',function(){ a.t=nota.value; guardar(); });
+      caja.append(el('label',{class:'sub','for':id+'-t'}, cambia?'Escribe cómo debería decir, o qué cambiarías':'Si quieres, cuenta por qué (opcional)'), nota);
+      if(foco==='cambiar'){ enfocar=nota; }
+    }
+    if(enfocar){ enfocar.focus(); }
+  }
+  dibujar(null);
+  return caja;
+}
+
+/* ---------------- Avance ---------------- */
+function contar(){
+  var total=0, hechas=0;
+  SECCIONES.forEach(function(s){
+    if(s.equipo){
+      S.equipo.forEach(function(m){ EQ.forEach(function(q){ total++; if(respondida(m,q)){ hechas++; } }); });
+    }else if(s.preguntas){
+      s.preguntas.forEach(function(q){ total++; if(respondida(S.r,q)){ hechas++; } });
+    }
+  });
+  return {total:total, hechas:hechas};
+}
+function actualizarAvance(){
+  var c=contar();
+  $barra.style.width=(c.total?Math.round(c.hechas*100/c.total):0)+'%';
+  $avance.textContent=c.hechas+' de '+c.total+' preguntas respondidas';
+}
+
+/* ---------------- Mensaje final ---------------- */
+function valor(q,m){
+  var a=m[q.id];
+  if(!a || !Array.isArray(a.sel)){ return null; }
+  if(a.sel.indexOf(NS)>-1){ return {ns:true}; }
+  var t=(a.t||'').trim();
+  if(esTexto(q)){ return t?{txt:t}:null; }
+  if(q.tipo==='revision'){
+    if(!a.sel.length){ return null; }
+    if(a.sel[0]==='ok'){ return {txt:'QUEDA TAL CUAL'}; }
+    if(a.sel[0]==='quitar'){ return {txt:'NO VA EN LA PÁGINA'+(t?'. Motivo: '+t:'')}; }
+    return {txt:'CAMBIAR. '+(t?'Nuevo texto o indicación: '+t:'(no escribió el cambio)')};
+  }
+  var vals=a.sel.filter(function(v){ return v!==OTRO; });
+  var o=(a.otro||'').trim();
+  if(a.sel.indexOf(OTRO)>-1 && o){ vals.push('Otro: '+o); }
+  return vals.length?{txt:vals.join('; ')}:null;
+}
+function armarMensaje(){
+  var c=contar(), L=[], noSabe=[], vacias=[];
+  L.push('*DATOS PARA LA WEB DE OCUPAMENTE*');
+  L.push('Formulario del '+new Date().toLocaleDateString('es-CL')+'. '+c.hechas+' de '+c.total+' preguntas respondidas.');
+  function bloque(titulo,qs,m){
+    var lineas=[], faltan=[];
+    qs.forEach(function(q){
+      var v=valor(q,m);
+      if(!v){ faltan.push(q.corto); }
+      else if(v.ns){ noSabe.push(titulo+': '+q.corto); }
+      else{ lineas.push('- '+q.corto+': '+v.txt); }
+    });
+    if(lineas.length){ L.push(''); L.push('*'+titulo.toUpperCase()+'*'); L=L.concat(lineas); }
+    if(faltan.length){ vacias.push('- '+titulo+': '+faltan.join('; ')); }
+  }
+  SECCIONES.forEach(function(s){
+    if(s.equipo){ S.equipo.forEach(function(m,i){ bloque('Equipo, persona '+(i+1),EQ,m); }); }
+    else if(s.preguntas){ bloque(s.titulo,s.preguntas,S.r); }
+  });
+  if(noSabe.length){ L.push(''); L.push('*AÚN NO LO SABE*'); noSabe.forEach(function(x){ L.push('- '+x); }); }
+  if(vacias.length){ L.push(''); L.push('*SIN RESPONDER*'); L=L.concat(vacias); }
+  return L.join('\n');
+}
+
+/* ---------------- Pantallas ---------------- */
+function pantallaInicio(){
+  var cont=[];
+  if(!puedeGuardar){
+    cont.push(el('div',{class:'aviso'},el('p',{},'Este navegador no permite guardar el avance. Responde todo de una vez o abre el formulario en otro navegador.')));
+  }
+  cont.push(el('p',{class:'intro'},'Este formulario reúne los datos que faltan para la página web de Ocupamente. Toma entre 15 y 20 minutos.'));
+  cont.push(el('ul',{},
+    el('li',{},'Ninguna pregunta es obligatoria. Puedes enviar lo que tengas y completar el resto después.'),
+    el('li',{},'En cada pregunta puedes marcar "Aún no lo sé".'),
+    el('li',{},'Donde hay botones, siempre puedes elegir "Otro" y escribir tu respuesta.'),
+    el('li',{},'Tu avance se guarda solo en este dispositivo y en este navegador. Usa siempre el mismo y no uses una ventana de incógnito.'),
+    el('li',{},'Al final, un botón abre WhatsApp con todas tus respuestas listas para enviárselas a Romina.'),
+    el('li',{},'Las fotos y el logo se envían aparte.')
+  ));
+  cont.push(el('p',{},'Antes de responder, mira la vista previa de la página:'));
+  cont.push(el('p',{},el('a',{class:'btn btn--linea',href:VISTA_PREVIA,target:'_blank',rel:'noopener'},'Abrir la vista previa')));
+  return cont;
+}
+function pantallaEquipo(s){
+  var cont=[el('p',{class:'intro'},s.intro)];
+  S.equipo.forEach(function(m,i){
+    var quitar=null;
+    if(S.equipo.length>1){
+      quitar=el('button',{type:'button',class:'btn btn--linea btn--chico'},'Quitar');
+      quitar.addEventListener('click',function(){
+        if(quitar.dataset.listo){ S.equipo.splice(i,1); guardar(); dibujarPaso(false); }
+        else{ quitar.dataset.listo='1'; quitar.textContent='Confirmar: quitar'; }
+      });
+    }
+    cont.push(el('section',{class:'persona','aria-label':'Persona '+(i+1)},
+      el('div',{class:'persona__cab'}, el('h3',{},'Persona '+(i+1)), quitar),
+      EQ.map(function(q){ return pregunta(q,m,'eq'+i); })
+    ));
+  });
+  var mas=el('button',{type:'button',class:'btn btn--linea'},'Agregar otra persona del equipo');
+  mas.addEventListener('click',function(){
+    S.equipo.push({}); guardar(); dibujarPaso(false);
+    var ps=$paso.querySelectorAll('.persona'); var ult=ps[ps.length-1];
+    if(ult){ ult.scrollIntoView(); var f=ult.querySelector('input'); if(f){ f.focus(); } }
+  });
+  cont.push(mas);
+  return cont;
+}
+function pantallaFin(){
+  var msg=armarMensaje();
+  var area=el('textarea',{id:'mensaje',readonly:'readonly','aria-label':'Tus respuestas'});
+  area.value=msg;
+  var estado=el('p',{class:'estado','aria-live':'polite'});
+  var wsp=el('a',{class:'btn',target:'_blank',rel:'noopener',href:'https://wa.me/?text='+encodeURIComponent(msg)},'Enviar por WhatsApp');
+  var copiar=el('button',{type:'button',class:'btn btn--linea'},'Copiar respuestas');
+  copiar.addEventListener('click',function(){
+    function manual(){ area.focus(); area.select(); var ok=false; try{ ok=document.execCommand('copy'); }catch(e){}
+      estado.textContent=ok?'Respuestas copiadas. Pégalas en el chat de Romina.':'No se pudo copiar automáticamente. El texto quedó seleccionado: cópialo a mano.'; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(msg).then(function(){ estado.textContent='Respuestas copiadas. Pégalas en el chat de Romina.'; }, manual);
+    }else{ manual(); }
+  });
+  var borrar=el('button',{type:'button',class:'btn btn--linea btn--chico'},'Borrar todas las respuestas');
+  borrar.addEventListener('click',function(){ var d=document.getElementById('borrar'); if(d.showModal){ d.showModal(); } });
+
+  var c=contar(), cont=[];
+  cont.push(el('p',{class:'intro'},'Respondiste '+c.hechas+' de '+c.total+' preguntas. Puedes enviar ahora y completar el resto después: tus respuestas quedan guardadas aquí.'));
+  cont.push(el('p',{},'El botón abre WhatsApp con el texto listo. Elige el chat de Romina y envíalo.'));
+  cont.push(el('div',{class:'acciones'},wsp,copiar));
+  if(msg.length>3000){
+    cont.push(el('div',{class:'aviso'},el('p',{},'Tu mensaje es largo. Si WhatsApp lo muestra cortado o no abre, usa "Copiar respuestas" y pégalo en el chat.')));
+  }
+  cont.push(estado, area);
+  cont.push(el('p',{class:'ayuda'},'Recuerda enviar aparte las fotos y el logo.'));
+  cont.push(el('p',{},borrar));
+  return cont;
+}
+
+function dibujarPaso(subir){
+  var s=SECCIONES[S.paso];
+  $paso.textContent='';
+  var h=el('h2',{tabindex:'-1'},s.titulo);
+  $paso.append(el('p',{class:'paso-n'},'Sección '+(S.paso+1)+' de '+SECCIONES.length), h);
+  var cont;
+  if(s.inicio){ cont=pantallaInicio(); }
+  else if(s.equipo){ cont=pantallaEquipo(s); }
+  else if(s.fin){ cont=pantallaFin(); }
+  else{
+    cont=[];
+    if(s.intro){ cont.push(el('p',{class:'intro'},s.intro)); }
+    s.preguntas.forEach(function(q){ cont.push(pregunta(q,S.r,'r')); });
+  }
+  cont.forEach(function(x){ $paso.append(x); });
+  $ant.disabled=S.paso===0;
+  $sig.disabled=S.paso===SECCIONES.length-1;
+  $sig.textContent=S.paso===SECCIONES.length-2?'Revisar y enviar':(S.paso===0?'Empezar':'Siguiente');
+  $ir.value=String(S.paso);
+  actualizarAvance();
+  if(subir){ window.scrollTo(0,0); h.focus({preventScroll:true}); }
+}
+function ir(n){
+  if(n<0 || n>=SECCIONES.length){ return; }
+  S.paso=n; guardar(); dibujarPaso(true);
+}
+
+SECCIONES.forEach(function(s,i){ $ir.append(el('option',{value:String(i)},(i+1)+'. '+s.titulo)); });
+$ir.addEventListener('change',function(){ ir(Number($ir.value)); });
+$ant.addEventListener('click',function(){ ir(S.paso-1); });
+$sig.addEventListener('click',function(){ ir(S.paso+1); });
+
+var $dlg=document.getElementById('borrar');
+document.getElementById('borrarNo').addEventListener('click',function(){ $dlg.close(); });
+document.getElementById('borrarSi').addEventListener('click',function(){
+  S={paso:0, r:{}, equipo:[{}]}; clearTimeout(temporizador); escribir(); $dlg.close(); dibujarPaso(true);
+});
+
+if(!puedeGuardar){ $guardado.textContent='Sin guardado automático'; }
+dibujarPaso(false);
+})();
+</script>
+</body>
+</html>
