@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ocupamente, centro de salud mental en Viña del Mar</title>
+<!-- Quitar la línea siguiente al publicar la versión final, para que Google indexe la página -->
+<meta name="robots" content="noindex">
+<meta name="description" content="Centro de acompañamiento integral en salud mental y bienestar, con enfoque neuroafirmativo y de las ciencias de la ocupación. 8 Norte 310, oficina 26, Viña del Mar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* ---------- Tokens de color (tomados del logo) ---------- */
+:root{
+  --papel:#F3EFE7;      /* fondo */
+  --hoja:#FBF9F4;       /* superficies */
+  --arena:#E8E0D3;      /* bloques suaves y recuadros de foto */
+  --linea:#D5CCBC;
+  --tinta:#2A3028;      /* texto */
+  --tinta-suave:#515C4C;
+  --salvia:#5E6E58;     /* verde del logo */
+  --topo:#8C7860;       /* café del logo, oscurecido para contraste */
+  --btn:#445440;
+  --btn-tinta:#FBF9F4;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --papel:#1E231D; --hoja:#262C24; --arena:#2F362D; --linea:#414A3E;
+    --tinta:#ECE7DC; --tinta-suave:#BEC6B6; --salvia:#A9BBA1; --topo:#CDBBA2;
+    --btn:#B7C8AF; --btn-tinta:#1E231D; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --papel:#1E231D; --hoja:#262C24; --arena:#2F362D; --linea:#414A3E;
+  --tinta:#ECE7DC; --tinta-suave:#BEC6B6; --salvia:#A9BBA1; --topo:#CDBBA2;
+  --btn:#B7C8AF; --btn-tinta:#1E231D; color-scheme:dark;
+}
+
+/* ---------- Base ---------- */
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 5.5rem); -webkit-text-size-adjust:100%}
+html[data-size="l"]{font-size:112.5%}
+html[data-size="xl"]{font-size:125%}
+body{
+  margin:0; background:var(--papel); color:var(--tinta);
+  font-family:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",Verdana,"Segoe UI",system-ui,sans-serif;
+  font-size:1.0625rem; line-height:1.65;
+}
+html[data-spacing="wide"] body{line-height:1.95; letter-spacing:.025em; word-spacing:.1em}
+img,svg{max-width:100%}
+a{color:var(--tinta); text-underline-offset:.2em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--tinta); outline-offset:3px; border-radius:4px}
+h1,h2,h3{line-height:1.2; margin:0; text-wrap:balance}
+h1{font-weight:300; font-size:clamp(2rem,1.2rem + 3.2vw,3.25rem); letter-spacing:-.01em}
+h2{font-weight:300; font-size:clamp(1.6rem,1.2rem + 1.6vw,2.25rem)}
+h3{font-weight:600; font-size:1.15rem}
+p{margin:0 0 1em; max-width:62ch}
+.ancho{width:min(100% - 2.5rem,68rem); margin-inline:auto}
+.saltar{position:absolute; left:-999px}
+.saltar:focus{left:1rem; top:1rem; z-index:20; background:var(--hoja); padding:.6rem 1rem}
+.tbc{background:var(--arena); border:1px dashed var(--topo); border-radius:6px; padding:.05em .4em; font-size:.92em; white-space:nowrap}
+
+/* ---------- Botones ---------- */
+.btn{
+  display:inline-block; font:inherit; font-weight:600; cursor:pointer; text-decoration:none;
+  background:var(--btn); color:var(--btn-tinta); border:2px solid var(--btn);
+  padding:.7rem 1.25rem; border-radius:999px; min-height:2.75rem;
+}
+.btn--linea{background:transparent; color:var(--tinta); border-color:var(--salvia)}
+.btn--chico{padding:.4rem .9rem; min-height:2.4rem; font-size:.95rem}
+.btn:hover{filter:brightness(1.08)}
+
+/* ---------- Aviso de vista previa ---------- */
+.aviso{background:var(--arena); border-bottom:1px solid var(--linea); font-size:.95rem; padding:.6rem 0}
+.aviso p{margin:0; max-width:none}
+
+/* ---------- Cabecera ---------- */
+.cabecera{position:sticky; top:env(safe-area-inset-top,0px); z-index:10; background:var(--papel); border-bottom:1px solid var(--linea)}
+.cabecera__fila{display:flex; align-items:center; gap:1rem; padding:.7rem 0; flex-wrap:wrap}
+.marca{font-weight:300; font-size:1.6rem; text-decoration:none; letter-spacing:-.01em; margin-right:auto; line-height:1}
+.marca b{font-weight:300; color:var(--salvia)}
+.marca i{font-style:normal; color:var(--topo)}
+.nav{display:flex; gap:1.1rem; align-items:center; font-size:.97rem}
+.nav a{text-decoration:none; padding:.4rem 0}
+.nav a:hover{text-decoration:underline}
+.menu-btn{display:none}
+@media (max-width:62rem){
+  .menu-btn{display:inline-block}
+  .nav{display:none; order:5; width:100%; flex-direction:column; align-items:flex-start; gap:.2rem; padding:.4rem 0 .8rem; font-size:1.05rem}
+  .nav.abierto{display:flex}
+  .nav a{padding:.55rem 0; width:100%}
+}
+
+/* ---------- Secciones ---------- */
+.seccion{padding:clamp(3rem,2rem + 4vw,5.5rem) 0}
+.seccion--tono{background:var(--hoja); border-block:1px solid var(--linea)}
+.seccion > .ancho > h2{margin-bottom:.6rem}
+.bajada{color:var(--tinta-suave); font-size:1.1rem; margin-bottom:2rem}
+
+/* ---------- Portada ---------- */
+.portada{padding:clamp(2.5rem,1.5rem + 4vw,5rem) 0 clamp(2.5rem,2rem + 3vw,4rem)}
+.portada__grid{display:grid; gap:2.5rem; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); align-items:center}
+.portada p.lead{font-size:1.2rem; color:var(--tinta-suave); margin:1.2rem 0 1.6rem}
+.acciones{display:flex; flex-wrap:wrap; gap:.75rem; margin-bottom:.9rem}
+.nota{font-size:.95rem; color:var(--tinta-suave)}
+@media (max-width:48rem){ .portada__grid{grid-template-columns:1fr} }
+
+/* Datos clave bajo la portada */
+.datos{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin:2.5rem 0 0; border-top:1px solid var(--linea)}
+.datos div{padding:1.1rem 1.25rem 0 0}
+.datos div + div{padding-left:1.25rem; border-left:1px solid var(--linea)}
+.datos dt{font-weight:600; margin-bottom:.2rem}
+.datos dd{margin:0; color:var(--tinta-suave)}
+@media (max-width:48rem){
+  .datos{grid-template-columns:1fr}
+  .datos div, .datos div + div{padding:1rem 0; border-left:0; border-bottom:1px solid var(--linea)}
+}
+
+/* ---------- Recuadros de foto pendiente ---------- */
+.foto{margin:0}
+.foto__ph{
+  aspect-ratio:var(--r,4/3); background:var(--arena); border:2px dashed var(--linea); border-radius:14px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  gap:.3rem; padding:1rem; color:var(--tinta-suave); font-size:.95rem;
+}
+.foto__ph svg{width:1.8rem; height:1.8rem; fill:none; stroke:currentColor; stroke-width:1.5}
+.foto__ph strong{color:var(--tinta); font-weight:600}
+.foto--arco .foto__ph{border-radius:50% 50% 14px 14px / 38% 38% 14px 14px; --r:4/5}
+.foto figcaption{font-size:.95rem; color:var(--tinta-suave); margin-top:.5rem}
+
+/* ---------- El centro ---------- */
+.dos{display:grid; gap:2.5rem; grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:48rem){ .dos{grid-template-columns:1fr} }
+.compromisos{list-style:none; padding:0; margin:2.5rem 0 0; display:grid; gap:1.5rem; grid-template-columns:repeat(3,minmax(0,1fr))}
+.compromisos li{border-top:3px solid var(--salvia); padding-top:.9rem}
+.compromisos p{margin:.3rem 0 0; color:var(--tinta-suave)}
+@media (max-width:48rem){ .compromisos{grid-template-columns:1fr} }
+
+/* ---------- Especialidades (filas, no tarjetas) ---------- */
+.filas{margin:0; border-top:1px solid var(--linea)}
+.fila{display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr) auto; gap:1.5rem; padding:1.6rem 0; border-bottom:1px solid var(--linea); align-items:start}
+.fila h3{font-weight:300; font-size:1.5rem}
+.fila p{margin:0}
+.fila .agenda{font-size:.95rem; color:var(--tinta-suave); margin-top:.5rem}
+@media (max-width:48rem){ .fila{grid-template-columns:1fr; gap:.7rem} }
+
+/* ---------- Equipo ---------- */
+.equipo{display:grid; gap:2.5rem; grid-template-columns:repeat(3,minmax(0,1fr)); list-style:none; padding:0; margin:0}
+.equipo .rol{color:var(--tinta-suave); margin:.15rem 0 .6rem}
+.equipo h3{margin-top:1rem}
+.equipo p{font-size:1rem}
+@media (max-width:48rem){ .equipo{grid-template-columns:1fr; max-width:22rem} }
+
+/* ---------- El espacio ---------- */
+.galeria{display:grid; gap:1.25rem; grid-template-columns:repeat(6,minmax(0,1fr))}
+.galeria .foto{grid-column:span 2}
+.galeria .foto.g{grid-column:span 3; --r:3/2}
+@media (max-width:48rem){ .galeria{grid-template-columns:1fr} .galeria .foto, .galeria .foto.g{grid-column:auto} }
+
+/* ---------- Primera visita (secuencia real: se numera) ---------- */
+.pasos{list-style:none; counter-reset:paso; margin:0 0 0 1.1rem; padding:0; border-left:2px solid var(--linea)}
+.pasos li{counter-increment:paso; position:relative; padding:0 0 2.4rem 2.4rem}
+.pasos li:last-child{padding-bottom:0}
+.pasos li::before{
+  content:counter(paso); position:absolute; left:-1.2rem; top:-.15rem; width:2.3rem; height:2.3rem; border-radius:50%;
+  background:var(--btn); color:var(--btn-tinta); display:grid; place-items:center; font-weight:600;
+}
+.pasos p{margin:.3rem 0 0; color:var(--tinta-suave)}
+
+/* ---------- Preguntas ---------- */
+details{border-bottom:1px solid var(--linea); padding:1rem 0; max-width:48rem}
+details:first-of-type{border-top:1px solid var(--linea)}
+summary{cursor:pointer; font-weight:600; font-size:1.08rem}
+details p{margin:.7rem 0 0}
+
+/* ---------- Contacto ---------- */
+.contacto{display:grid; gap:2.5rem; grid-template-columns:repeat(2,minmax(0,1fr))}
+.contacto address{font-style:normal; font-size:1.15rem; margin-bottom:1rem}
+.vias{list-style:none; padding:0; margin:0; display:grid; gap:1.1rem}
+.vias li{display:grid; gap:.25rem}
+.vias span{color:var(--tinta-suave); font-size:.98rem}
+@media (max-width:48rem){ .contacto{grid-template-columns:1fr} }
+
+.pie{border-top:1px solid var(--linea); padding:1.5rem 0 2rem; font-size:.95rem; color:var(--tinta-suave)}
+.pie p{margin:0; max-width:none}
+
+/* ---------- Ventanas (ajustes y agenda) ---------- */
+dialog{
+  border:1px solid var(--linea); border-radius:16px; background:var(--hoja); color:var(--tinta);
+  padding:1.5rem; width:min(100% - 2rem,30rem); max-height:calc(100% - 2rem);
+}
+dialog::backdrop{background:rgba(30,35,29,.55)}
+dialog h2{font-size:1.5rem; margin-bottom:.6rem}
+.grupo{border:0; padding:0; margin:1.1rem 0 0}
+.grupo legend{font-weight:600; padding:0; margin-bottom:.4rem}
+.opciones{display:flex; flex-wrap:wrap; gap:.5rem}
+.opciones button{font:inherit; cursor:pointer; padding:.45rem .9rem; min-height:2.6rem; border-radius:999px; border:2px solid var(--linea); background:transparent; color:var(--tinta)}
+.opciones button[aria-pressed="true"]{background:var(--btn); border-color:var(--btn); color:var(--btn-tinta); font-weight:600}
+.cerrar{margin-top:1.5rem}
+.agenda-ph{border:2px dashed var(--linea); border-radius:12px; background:var(--arena); padding:1.25rem; margin:.8rem 0 1rem}
+.agenda-ph p{margin:0}
+</style>
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<div class="aviso"><div class="ancho"><p><strong>Vista previa para revisión.</strong> Los recuadros de foto y todo lo marcado como <span class="tbc">por confirmar</span> son provisorios.</p></div></div>
+
+<header class="cabecera">
+  <div class="ancho cabecera__fila">
+    <!-- Reemplazar por el logo real (SVG o PNG con fondo transparente) -->
+    <a class="marca" href="#inicio" aria-label="Ocupamente, inicio"><b>Ocupa</b><i>Mente</i></a>
+    <button class="btn btn--linea btn--chico menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="nav">Menú</button>
+    <nav class="nav" id="nav" aria-label="Secciones">
+      <a href="#centro">El centro</a>
+      <a href="#especialidades">Especialidades</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#espacio">El espacio</a>
+      <a href="#visita">Tu primera visita</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="btn btn--linea btn--chico" type="button" data-open="ajustes">Ajustes de lectura</button>
+    <button class="btn btn--chico" type="button" data-open="agenda">Agendar una hora</button>
+  </div>
+</header>
+
+<main id="contenido">
+
+  <!-- PORTADA -->
+  <section class="portada" id="inicio">
+    <div class="ancho">
+      <div class="portada__grid">
+        <div>
+          <h1>Acompañamiento integral en salud mental y bienestar a lo largo del curso de vida.</h1>
+          <p class="lead">Somos un centro enfocado en el bienestar a lo largo del desarrollo, con enfoque neuroafirmativo y de las ciencias de la ocupación.</p>
+          <div class="acciones">
+            <button class="btn" type="button" data-open="agenda">Agendar una hora</button>
+            <a class="btn btn--linea" href="#contacto">Escribir por WhatsApp</a>
+          </div>
+          <p class="nota">Puedes hacer todo por escrito. No necesitas llamar por teléfono.</p>
+        </div>
+        <figure class="foto foto--arco">
+          <div class="foto__ph">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+            <span>Foto pendiente</span><strong>La sala principal del centro, con luz natural</strong>
+          </div>
+        </figure>
+      </div>
+
+      <dl class="datos">
+        <div><dt>Dónde estamos</dt><dd>8 Norte 310, oficina 26. Galería Torres del Sol, Viña del Mar.</dd></div>
+        <div><dt>A quién atendemos</dt><dd><span class="tbc">Edades por confirmar</span></dd></div>
+        <div><dt>Horario de atención</dt><dd><span class="tbc">Por confirmar</span></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- EL CENTRO -->
+  <section class="seccion seccion--tono" id="centro">
+    <div class="ancho">
+      <h2>Cómo entendemos el acompañamiento</h2>
+      <p class="bajada">Texto propuesto. El equipo debe revisarlo y ajustarlo.</p>
+      <div class="dos">
+        <div>
+          <h3>Enfoque neuroafirmativo</h3>
+          <p>Entendemos la neurodivergencia (por ejemplo, autismo, TDAH o dislexia) como una forma distinta de percibir y procesar el mundo. No es algo que haya que corregir.</p>
+          <p>El acompañamiento parte de lo que tú necesitas, de tus intereses y de tu forma de comunicarte.</p>
+        </div>
+        <div>
+          <h3>Ciencias de la ocupación</h3>
+          <p>Estudian cómo las actividades de cada día influyen en el bienestar: estudiar, trabajar, jugar, descansar, cuidarse y relacionarse con otras personas.</p>
+          <p>Trabajamos para que esas actividades sean posibles y tengan sentido para ti.</p>
+        </div>
+      </div>
+      <ul class="compromisos">
+        <li><h3>Lenguaje claro</h3><p>Te explicamos cada paso antes de que ocurra.</p></li>
+        <li><h3>Tu ritmo</h3><p>Puedes pedir pausas, cambios en la luz o comunicarte por escrito.</p></li>
+        <li><h3>Información antes de venir</h3><p>Sabrás el valor, la duración y quién te atenderá antes de llegar.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ESPECIALIDADES -->
+  <section class="seccion" id="especialidades">
+    <div class="ancho">
+      <h2>Especialidades</h2>
+      <p class="bajada">Cada profesional agenda de una forma distinta. Aquí se indica cuál.</p>
+      <div class="filas">
+        <article class="fila">
+          <h3>Psicología</h3>
+          <div>
+            <p><span class="tbc">Descripción por confirmar</span>: a quién va dirigida, qué temas aborda y cómo son las sesiones.</p>
+            <p class="agenda">Agenda en línea, sin salir de esta página.</p>
+          </div>
+          <button class="btn btn--chico" type="button" data-open="agenda">Agendar</button>
+        </article>
+        <article class="fila">
+          <h3>Terapia ocupacional</h3>
+          <div>
+            <p><span class="tbc">Descripción por confirmar</span>: a quién va dirigida, qué se trabaja y cómo son las sesiones.</p>
+            <p class="agenda">Agenda: <span class="tbc">forma de reserva por confirmar</span></p>
+          </div>
+          <a class="btn btn--linea btn--chico" href="#contacto">Consultar</a>
+        </article>
+        <article class="fila">
+          <h3>Otras especialidades</h3>
+          <div>
+            <p><span class="tbc">Por confirmar</span>: listado completo de especialidades del centro.</p>
+          </div>
+          <span></span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section class="seccion seccion--tono" id="equipo">
+    <div class="ancho">
+      <h2>Equipo</h2>
+      <p class="bajada">Para que sepas quién te va a recibir antes de llegar.</p>
+      <ul class="equipo">
+        <li>
+          <figure class="foto foto--arco"><div class="foto__ph">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4 21c1-4.5 4-6.5 8-6.5s7 2 8 6.5"/></svg>
+            <span>Foto pendiente</span><strong>Retrato</strong></div></figure>
+          <h3><span class="tbc">Nombre por confirmar</span></h3>
+          <p class="rol">Psicóloga</p>
+          <p><span class="tbc">Reseña breve por confirmar</span>: formación, áreas de trabajo y a quién atiende.</p>
+        </li>
+        <li>
+          <figure class="foto foto--arco"><div class="foto__ph">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4 21c1-4.5 4-6.5 8-6.5s7 2 8 6.5"/></svg>
+            <span>Foto pendiente</span><strong>Retrato</strong></div></figure>
+          <h3><span class="tbc">Nombre por confirmar</span></h3>
+          <p class="rol">Terapeuta ocupacional</p>
+          <p><span class="tbc">Reseña breve por confirmar</span>: formación, áreas de trabajo y a quién atiende.</p>
+        </li>
+        <li>
+          <figure class="foto foto--arco"><div class="foto__ph">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4 21c1-4.5 4-6.5 8-6.5s7 2 8 6.5"/></svg>
+            <span>Foto pendiente</span><strong>Retrato</strong></div></figure>
+          <h3><span class="tbc">¿Más profesionales?</span></h3>
+          <p class="rol">Especialidad</p>
+          <p>Este espacio se repite por cada integrante del equipo.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- EL ESPACIO -->
+  <section class="seccion" id="espacio">
+    <div class="ancho">
+      <h2>El espacio</h2>
+      <p class="bajada">Fotos reales del lugar, en el mismo orden en que lo vas a recorrer.</p>
+      <div class="galeria">
+        <figure class="foto g"><div class="foto__ph">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+          <span>Foto pendiente</span><strong>Entrada de la galería vista desde 8 Norte</strong></div>
+          <figcaption>1. Así se ve la entrada desde la calle.</figcaption></figure>
+        <figure class="foto g"><div class="foto__ph">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+          <span>Foto pendiente</span><strong>Pasillo y puerta de la oficina 26</strong></div>
+          <figcaption>2. El camino dentro de la galería hasta nuestra puerta.</figcaption></figure>
+        <figure class="foto"><div class="foto__ph">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+          <span>Foto pendiente</span><strong>Sala de espera</strong></div>
+          <figcaption>3. Aquí esperas antes de tu hora.</figcaption></figure>
+        <figure class="foto"><div class="foto__ph">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+          <span>Foto pendiente</span><strong>Sala de psicología</strong></div>
+          <figcaption>4. Sala de atención de psicología.</figcaption></figure>
+        <figure class="foto"><div class="foto__ph">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+          <span>Foto pendiente</span><strong>Sala de terapia ocupacional</strong></div>
+          <figcaption>5. Sala de terapia ocupacional y sus materiales.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIMERA VISITA -->
+  <section class="seccion seccion--tono" id="visita">
+    <div class="ancho">
+      <h2>Tu primera visita, paso a paso</h2>
+      <p class="bajada">Saber qué va a pasar ayuda a llegar con más tranquilidad.</p>
+      <ol class="pasos">
+        <li>
+          <h3>Agendas tu hora</h3>
+          <p>Puedes agendar en línea o escribirnos por WhatsApp o correo. Recibirás una confirmación por <span class="tbc">medio por confirmar</span>.</p>
+        </li>
+        <li>
+          <h3>Llegas a la galería</h3>
+          <p>La dirección es 8 Norte 310, Galería Torres del Sol. La oficina 26 está en el <span class="tbc">piso por confirmar</span>. Se llega por <span class="tbc">escalera o ascensor, por confirmar</span>.</p>
+        </li>
+        <li>
+          <h3>Esperas en la sala de espera</h3>
+          <p><span class="tbc">Descripción por confirmar</span>: tipo de luz, nivel de ruido, cuántas personas suele haber. Puedes traer audífonos, objetos que te ayuden a regularte o venir con alguien de confianza.</p>
+        </li>
+        <li>
+          <h3>La sesión</h3>
+          <p>Dura <span class="tbc">minutos por confirmar</span>. En la primera sesión conversamos sobre qué te trae y qué necesitas. No hay respuestas correctas ni incorrectas.</p>
+        </li>
+        <li>
+          <h3>Al terminar</h3>
+          <p>Acordamos contigo los pasos siguientes. Medios de pago: <span class="tbc">por confirmar</span>.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- PREGUNTAS -->
+  <section class="seccion" id="preguntas">
+    <div class="ancho">
+      <h2>Preguntas frecuentes</h2>
+      <p class="bajada">Las respuestas las completa el equipo.</p>
+      <details><summary>¿Cuánto cuesta una sesión?</summary><p><span class="tbc">Valores por confirmar</span></p></details>
+      <details><summary>¿Puedo usar Fonasa o pedir reembolso en mi Isapre?</summary><p><span class="tbc">Por confirmar</span></p></details>
+      <details><summary>¿Necesito un diagnóstico para agendar?</summary><p><span class="tbc">Por confirmar</span></p></details>
+      <details><summary>¿Atienden también en línea?</summary><p><span class="tbc">Por confirmar</span></p></details>
+      <details><summary>¿Puedo venir con otra persona?</summary><p><span class="tbc">Por confirmar</span></p></details>
+      <details><summary>¿Qué pasa si necesito cancelar o cambiar mi hora?</summary><p><span class="tbc">Por confirmar</span></p></details>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="seccion seccion--tono" id="contacto">
+    <div class="ancho">
+      <h2>Contacto y cómo llegar</h2>
+      <p class="bajada">Elige la vía que te resulte más cómoda.</p>
+      <div class="contacto">
+        <ul class="vias">
+          <li><strong>WhatsApp</strong><span>Respondemos mensajes escritos. Número: <span class="tbc">por confirmar</span></span></li>
+          <li><strong>Correo</strong><span><span class="tbc">Correo por confirmar</span></span></li>
+          <li><strong>Instagram</strong><span><a href="https://www.instagram.com/ocupamente.vina/" target="_blank" rel="noopener">@ocupamente.vina</a></span></li>
+          <li><strong>Agenda en línea</strong><span><button class="btn btn--chico" type="button" data-open="agenda">Agendar una hora</button></span></li>
+        </ul>
+        <div>
+          <address>8 Norte 310, oficina 26<br>Galería Torres del Sol<br>Viña del Mar, Chile</address>
+          <p><a href="https://www.google.com/maps/search/?api=1&query=8+Norte+310+Vi%C3%B1a+del+Mar" target="_blank" rel="noopener">Abrir la dirección en Google Maps</a></p>
+          <p>Horario: <span class="tbc">por confirmar</span><br>Estacionamiento y locomoción: <span class="tbc">por confirmar</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie"><div class="ancho"><p>Ocupamente. 8 Norte 310, oficina 26, Galería Torres del Sol, Viña del Mar.</p></div></footer>
+
+<!-- VENTANA: AJUSTES DE LECTURA -->
+<dialog id="ajustes" aria-labelledby="ajustesT">
+  <h2 id="ajustesT">Ajustes de lectura</h2>
+  <p>Se guardan en este dispositivo.</p>
+  <fieldset class="grupo"><legend>Tamaño del texto</legend>
+    <div class="opciones" data-pref="size">
+      <button type="button" data-val="m">Normal</button>
+      <button type="button" data-val="l">Grande</button>
+      <button type="button" data-val="xl">Muy grande</button>
+    </div></fieldset>
+  <fieldset class="grupo"><legend>Espacio entre líneas y letras</legend>
+    <div class="opciones" data-pref="spacing">
+      <button type="button" data-val="normal">Normal</button>
+      <button type="button" data-val="wide">Amplio</button>
+    </div></fieldset>
+  <fieldset class="grupo"><legend>Colores</legend>
+    <div class="opciones" data-pref="theme">
+      <button type="button" data-val="auto">Según mi dispositivo</button>
+      <button type="button" data-val="light">Claro</button>
+      <button type="button" data-val="dark">Oscuro</button>
+    </div></fieldset>
+  <button class="btn cerrar" type="button" data-close>Listo</button>
+</dialog>
+
+<!-- VENTANA: AGENDA (aquí va el código de Encuadrado) -->
+<dialog id="agenda" aria-labelledby="agendaT">
+  <h2 id="agendaT">Agendar una hora</h2>
+  <div class="agenda-ph">
+    <p><strong>Aquí se abrirá la agenda en línea de Encuadrado.</strong> En esta vista previa todavía no está conectada.</p>
+  </div>
+  <p>También puedes agendar por escrito, por WhatsApp o correo.</p>
+  <button class="btn cerrar" type="button" data-close>Cerrar</button>
+</dialog>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var store={
+    get:function(k){try{return localStorage.getItem('ocupamente:'+k)}catch(e){return null}},
+    set:function(k,v){try{localStorage.setItem('ocupamente:'+k,v)}catch(e){}}
+  };
+  var defaults={size:'m',spacing:'normal',theme:'auto'};
+
+  function apply(pref,val){
+    if(pref==='theme'){ if(val==='auto'){root.removeAttribute('data-theme')}else{root.setAttribute('data-theme',val)} }
+    else{ root.setAttribute('data-'+pref,val) }
+    var grupo=document.querySelector('[data-pref="'+pref+'"]');
+    if(grupo){ grupo.querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.val===val)); }); }
+  }
+  Object.keys(defaults).forEach(function(p){ apply(p, store.get(p)||defaults[p]); });
+
+  document.querySelectorAll('[data-pref] button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var p=b.parentElement.dataset.pref; apply(p,b.dataset.val); store.set(p,b.dataset.val);
+    });
+  });
+
+  // Ventanas
+  document.querySelectorAll('[data-open]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var d=document.getElementById(b.dataset.open);
+      if(d && d.showModal){ d.showModal(); }
+    });
+  });
+  document.querySelectorAll('dialog').forEach(function(d){
+    d.addEventListener('click',function(e){
+      if(e.target!==d){ return; }
+      var r=d.getBoundingClientRect();
+      if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom){ d.close(); }
+    });
+    d.querySelectorAll('[data-close]').forEach(function(c){ c.addEventListener('click',function(){ d.close(); }); });
+  });
+
+  // Menú en pantallas pequeñas
+  var menuBtn=document.getElementById('menuBtn'), nav=document.getElementById('nav');
+  menuBtn.addEventListener('click',function(){
+    var abierto=nav.classList.toggle('abierto');
+    menuBtn.setAttribute('aria-expanded',String(abierto));
+  });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){ nav.classList.remove('abierto'); menuBtn.setAttribute('aria-expanded','false'); });
+  });
+})();
+</script>
+</body>
+</html>
